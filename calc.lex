@@ -19,6 +19,7 @@ real		{integer}("."{integer})?{exponent}?
 "*"		{ return TIMES; }
 "/"		{ return DIVIDE; }
 "^"		{ return POWER; }
+"%"		{ return MOD; }
 "("		{ return LEFT; }
 ")"		{ return RIGHT; }
 "\n"		{ return END; }
