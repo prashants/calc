@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define YYSTYPE double
+extern char *yytext;
+extern int yylineno;
 %}
 
 %token NUMBER
@@ -44,7 +46,7 @@ Expression:
 
 int yyerror(char *s)
 {
-	printf("%s\n", s);
+	printf("%s on line %d - %s\n", s, yylineno, yytext);
 }
 
 int main()

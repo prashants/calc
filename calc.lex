@@ -4,6 +4,8 @@
 #include <stdlib.h>
 %}
 
+%option yylineno
+
 white		[ \t]+
 digit		[0-9]
 integer		{digit}+
@@ -25,4 +27,4 @@ hex		0[xX][0-9A-Fa-f]+
 "("		{ return LEFT; }
 ")"		{ return RIGHT; }
 "\n"		{ return END; }
-
+.		{ yyerror("Invalid token"); }
