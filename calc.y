@@ -5,6 +5,7 @@
 #define YYSTYPE double
 extern char *yytext;
 extern int yylineno;
+extern FILE *yyin;
 %}
 
 %token NUMBER
@@ -49,10 +50,20 @@ int yyerror(char *s)
 	printf("%s on line %d - %s\n", s, yylineno, yytext);
 }
 
-int main()
+int main(int argc, char **argv)
 {
-	if (yyparse())
-		fprintf(stderr, "Successful parsing.\n");
-	else
-		fprintf(stderr, "Error found.\n");
+	/* if any input file has been specified read from that */
+	if (argc >= 2) {
+		yyin = fopen(argv[1], "r");
+		if (!yyin) {
+			fprintf(stderr, "Failed to open input file\n");
+		}
+	}
+
+	if (yyparse()) {
+		fprintf(stdout, "Successful parsing\n");
+	}
+
+	fclose(yyin);
+	fprintf(stdout, "End of processing\n");
 }
