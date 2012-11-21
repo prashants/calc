@@ -50,6 +50,12 @@ int yyerror(char *s)
 	printf("%s on line %d - %s\n", s, yylineno, yytext);
 }
 
+int yywrap(void)
+{
+	fprintf(stdout, "End of input reached\n");
+	return 1;
+}
+
 int main(int argc, char **argv)
 {
 	/* if any input file has been specified read from that */
@@ -58,6 +64,7 @@ int main(int argc, char **argv)
 		if (!yyin) {
 			fprintf(stderr, "Failed to open input file\n");
 		}
+		return EXIT_FAILURE;
 	}
 
 	if (yyparse()) {
@@ -66,4 +73,5 @@ int main(int argc, char **argv)
 
 	fclose(yyin);
 	fprintf(stdout, "End of processing\n");
+	return EXIT_SUCCESS;
 }
